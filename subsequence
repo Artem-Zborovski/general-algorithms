@@ -1,0 +1,31 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <fstream>   
+using namespace std;
+int main() {
+    ifstream input("input.txt");
+    ofstream output("output.txt");
+    int n;
+    input >> n; 
+    
+    vector<int> A(n);
+    for (int i = 0; i < n; ++i) {
+        input >> A[i]; 
+    }
+    vector<int> lis; 
+    for (int x : A) {
+        auto pos = lower_bound(lis.begin(), lis.end(), x);
+        if (pos == lis.end()) {
+            lis.push_back(x);
+        } else {
+            *pos = x;
+        }
+    }
+    
+    output << lis.size() << endl;
+    input.close();
+    output.close();
+
+    return 0;
+}
